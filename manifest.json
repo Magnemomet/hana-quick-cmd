@@ -1,0 +1,46 @@
+{
+  "manifestVersion": 2,
+  "id": "quick-cmd",
+  "name": "Hana快捷指令",
+  "version": "0.1.0",
+  "entry": "index.js",
+  "icon": "icon.svg",
+  "minAppVersion": "0.1050.9",
+  "description": "输入栏旁的快捷指令入口：点开按序号选，发送时把指令内容拼到本次输入的头或尾；每个 agent 独立配置，也允许 Agent 通过工具增删改。",
+  "capabilities": [
+    "app/input.status",
+    "app/input.panels",
+    "app/hooks.session-input",
+    "app/tools.expose-to-model",
+    "app/agents.read",
+    "app/sessions.read"
+  ],
+  "contributes": {
+    "settings": {
+      "title": "Hana快捷指令",
+      "ui": { "route": "/settings.html" }
+    },
+    "cards": [
+      {
+        "id": "main",
+        "title": "Hana快捷指令",
+        "description": "按 agent 配置输入快捷指令",
+        "route": "/app.html",
+        "realization": "page",
+        "cardForm": "structural",
+        "face": { "image": "assets/cover.svg" }
+      }
+    ],
+    "ui": {
+      "inputStatus": [
+        {
+          "id": "open",
+          "title": "快捷指令",
+          "text": "⌘",
+          "tooltip": "快捷指令",
+          "toolName": "quickcmd_open"
+        }
+      ]
+    }
+  }
+}

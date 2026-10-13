@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>快捷指令</title>
+  <script src="./assets/theme-boot.js"></script>
+  <link rel="stylesheet" href="./assets/qc.css">
+</head>
+<body data-hana-theme="inherit" data-surface="card">
+  <div id="qc" data-expanded="true" tabindex="-1">
+    <div class="qc-body">
+      <div class="qc-head">
+        <span class="qc-title">快捷指令</span>
+        <span class="qc-sub" id="qc-sub"></span>
+      </div>
+      <ul class="qc-list" id="qc-list"></ul>
+      <div class="qc-empty" id="qc-empty" hidden></div>
+      <div class="qc-foot" id="qc-foot"></div>
+    </div>
+    <div class="qc-bar">
+      <span class="qc-chips" id="qc-chips"></span>
+      <span class="qc-bar-hint" id="qc-bar-hint"></span>
+      <span class="qc-bar-tools">
+        <button class="qc-icon" id="qc-toggle" type="button" title="收起 / 展开" aria-label="收起或展开"></button>
+        <button class="qc-icon" id="qc-close" type="button" title="关闭面板" aria-label="关闭面板">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </span>
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener("error", function (e) {
+      var el = document.getElementById("qc-sub");
+      if (el) el.textContent = "加载失败：" + ((e && e.message) || "脚本错误");
+    }, true);
+  </script>
+  <script type="module" src="./assets/panel.js"></script>
+</body>
+</html>
