@@ -26,7 +26,7 @@
 - [x] 安装 / 启用 / 实机验证
 - [x] 官方打包（extension-pack，静态校验通过）
 - [x] git 初始化 + 首次提交
-- [ ] 市场登记 PR
+- [x] 市场登记 PR（liliMozi/hana-marketplace #88）
 
 ## 已知问题 / TODO
 - [x] 输入栏 ⌘ 图标已实机确认出现（宿主日志那行 ui-contributions 不单列 inputStatus 计数，以实机为准）。
@@ -46,6 +46,8 @@
 - 2026-10-13 · 平台无「composer chip」注入 API。查遍 v2 App SDK（context.d.ts / ui-contribution-points / 桌面包字符串）确认：应用能拿到的输入框相关座位只有 `hana/input.controls`（按钮）、`hana/input.attention`（横幅）、inputPanels（上方 UI）；能改写用户输入的唯一入口是 `hooks.onDecision("session/input")`。据此定架构：面板管「选」，钩子管「拼」。
 
 ### ✅ 成功经验
+- 2026-10-13 · 本机 `github.com:443` 被拦、`git push` 不通，改用 **Git Data API** 逐个写 blob（361 个文件）建仓库：先用 Contents API 造一个初始提交把空仓库激活（空仓库写 blob 会 409），再建全量 tree、用一个**根提交**（无 parent）承载全部文件，最后 `PATCH` ref 强制指过去——历史只留一个干净提交。`uploads.github.com` 通（Release 附件走它）。
+- 2026-10-13 · 市场收录要的是「作者仓库的正式 Release」：先把包用 `extension-pack` 打好，把 `archive.sha256` 照抄进 `approvals.json`；PR 只改 `registry.json` + `approvals.json` 两份。开完 PR 后从 Release 重新下载 zip 复算 sha256，与登记值对得上才算过。
 - 2026-10-13 · 用「待消费选择」把面板与钩子解耦：面板 POST /select 写一份按 sessionId 索引的 id 列表，钩子读到后用一次即清。既满足「只作用于本次输入」，又不需要面板与发送动作直接握手。
 - 2026-10-13 · 复用 prompt-studio / hana-preset 的官方 SDK 与页面引导（theme-boot / app-api），少踩 SDK 通信与鉴权的坑。
 
@@ -64,6 +66,14 @@
 - [x] 发送后指令内容拼到本次输入头/尾，标签随发送清空 - 手动确认
 - [x] 设置页：选 agent、增删改指令、保存、恢复继承默认 - 手动确认
 - [ ] 设置页：关掉 Agent 工具后，quickcmd_* 三件套撤下
+
+## 发布记录
+- 仓库：https://github.com/Magnemomet/hana-quick-cmd（公开）
+- 首个提交：`1a8d35f`（361 个文件）
+- Release：`v0.1.0`，附件 `app-quick-cmd-0.1.0.zip`（2,413,643 字节，sha256 `9083e69b…ccfa6c0`）与 `app-quick-cmd-0.1.0.entry.json`
+- 市场登记 PR：`liliMozi/hana-marketplace` #88（registry.json +1 条、approvals.json +1 条）
+- 核验：从 Release 重新下载 zip 复算 sha256，与登记值一致
+- 待补：PR 正文里的界面截图（作者补），以及同意后重跑市场同步器
 
 ## 备份记录
 （自动维护）
